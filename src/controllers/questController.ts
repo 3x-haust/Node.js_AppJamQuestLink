@@ -14,6 +14,7 @@ const getGeneratedQuest = async (req: any, res: any) => {
     
     res.status(200).send(text);
   } catch (error) {
+    console.error(error);
     res.status(500).send({ message: "Internal server error" });
   }
 }
