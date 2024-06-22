@@ -15,7 +15,8 @@ class UserService {
         schoolName: userData.schoolName, 
         points: userData.points, 
         questsInProgress: userData.questsInProgress, 
-        questsCompleted: userData.questsCompleted 
+        questsCompleted: userData.questsCompleted,
+        friends: userData.friends
       });
     } catch (error) {
         console.error(error);
@@ -52,9 +53,16 @@ class UserService {
       userId,
       { 
         $pull: { questsInProgress: questId }, 
-        $addToSet: { questsCompleted: questId }, 
-        $inc: { points: 10 }  
+        $addToSet: { questsCompleted: questId }
       },
+      { new: true }
+    ).exec();
+  }
+
+  async addFriend(userId: number, friendId: number) {
+    return User.findByIdAndUpdate(
+      userId,
+      { $addToSet: { friends: friendId } },
       { new: true }
     ).exec();
   }

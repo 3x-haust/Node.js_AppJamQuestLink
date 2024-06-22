@@ -1,6 +1,4 @@
 import userService from '../services/userService';
-import { get } from '../../node_modules/mongodb/src/utils';
-
 
 const getUserById = async (req: any, res: any) => {
   try {
@@ -52,6 +50,22 @@ const createUser = async (req: any, res: any) => {
   }
 }
 
+const addFriend = async (req: any, res: any) => {
+  try {
+    const userId = req.query.id;
+    const friendId = req.query.friendId;
+
+    const user = await userService.addFriend(userId, friendId);
+    if (!user) {
+      return res.status(404).send({ message: 'User not found' });
+    }
+    res.status(200).send(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: 'Error adding friend' });
+  }
+}
+
 const getAllUsers = async (req: any, res: any) => {
   try {
     const users = await userService.getAllUsers();
@@ -94,4 +108,4 @@ const addQuestCompleted = async (req: any, res: any) => {
 }
 
 
-export default { getUserById, updateUser, createUser, removeUserById, getAllUsers, addQuestInProgress, addQuestCompleted };
+export default { getUserById, updateUser, createUser, removeUserById, getAllUsers, addQuestInProgress, addQuestCompleted, addFriend };

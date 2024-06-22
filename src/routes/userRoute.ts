@@ -9,9 +9,10 @@ router.get('/getAllUsers', userController.getAllUsers);
 
 router.post('/addQuestInProgress', userController.addQuestInProgress);
 router.post('/addQuestCompleted', userController.addQuestCompleted);
+router.post('/addFriend', userController.addFriend);
 
 router.post('/createUser', userController.createUser);
-router.delete('/removeUser', userController.removeUserById);
+router.delete('/removeUserById', userController.removeUserById);
 
 router.put('/updateUser', userController.updateUser);
 
